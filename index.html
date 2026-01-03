@@ -1,419 +1,219 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>测试Blog</title>
-    <style>
-        /* 基础样式重置 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Protect Our Planet</title>
+  <style>
+    /* ===== 基础重置与全局样式 ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #fff;
-            background-color: #1a1a1a; /* 深色背景 */
-            overflow-x: hidden; /* 防止水平滚动 */
-        }
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f8fff8; /* 淡青绿背景 */
+      color: #2c3e50;
+      line-height: 1.6;
+    }
 
-        /* 视差滚动背景 */
-        .parallax-container {
-            height: 100vh;
-            overflow-y: auto;
-            overflow-x: hidden;
-            perspective: 1px; /* 创建3D视差效果 */
-        }
+    h1, h2, h3 {
+      color: #27ae60; /* 主绿色 */
+    }
 
-        .parallax-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('https://source.unsplash.com/1600x900/?dark,abstract,technology'); /* 示例背景图 */
-            background-size: cover;
-            background-position: center;
-            transform: translateZ(-1px) scale(2); /* 向后移动并放大以填充 */
-            z-index: -1;
-        }
+    a {
+      color: #2980b9;
+      text-decoration: none;
+    }
 
-        /* 导航栏 */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px); /* 毛玻璃效果 */
-            padding: 1rem 2rem;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    a:hover {
+      text-decoration: underline;
+    }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #64ffda; /* 青绿色标题 */
-            text-decoration: none;
-        }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
+    /* ===== 页眉 ===== */
+    header {
+      background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+      padding: 2rem 0;
+      text-align: center;
+      border-bottom: 2px solid #a5d6a7;
+    }
 
-         .nav-links a {
-            color: #ccd6f6; /* 浅灰色链接 */
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s ease, transform 0.2s ease; /* 平滑过渡 */
-        }
+    header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+    }
 
-         .nav-links a:hover {
-            color: #64ffda; /* 悬停时变青绿色 */
-            transform: scale(1.05); /* 悬停时轻微放大 */
-        }
+    header p {
+      font-size: 1.2rem;
+      color: #4caf50;
+    }
 
-        /* 主页首屏 */
-        header {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 2rem;
-            position: relative; /* 为内部绝对定位元素提供上下文 */
-        }
+    /* ===== 导航栏 ===== */
+    nav {
+      background-color: white;
+      padding: 1rem 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
 
-        .greeting {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            animation: fadeInDown 1s ease-out; /* 进入动画 */
-        }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
 
-        .greeting span {
-            color: #64ffda; /* 高亮名字 */
-        }
+    nav a {
+      font-weight: 600;
+      color: #27ae60;
+    }
 
-        .tagline {
-            font-size: 1.5rem;
-            color: #8892b0; /* 稍暗的灰色 */
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s ease-out 0.3s both; /* 延迟进入 */
-        }
+    /* ===== 主内容区 ===== */
+    main {
+      padding: 3rem 0;
+    }
 
-        .cta-button {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            background-color: transparent;
-            color: #64ffda;
-            border: 1px solid #64ffda;
-            border-radius: 4px;
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            animation: fadeIn 1s ease-out 0.6s both; /* 延迟进入 */
-        }
+    .section {
+      margin-bottom: 3rem;
+    }
 
-        .cta-button:hover {
-            background-color: rgba(100, 255, 218, 0.1); /* 悬停背景 */
-            transform: translateY(-3px); /* 悬停上移 */
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* 添加阴影 */
-        }
+    .section h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+    }
 
-        /* 关于我部分 */
-        section {
-            padding: 6rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
 
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #64ffda;
-            text-align: center;
-        }
+    .tip-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      border-left: 4px solid #4caf50;
+      transition: transform 0.2s ease;
+    }
 
-        .about-content {
-            display: flex;
-            gap: 3rem;
-            align-items: center;
-        }
+    .tip-card:hover {
+      transform: translateY(-5px);
+    }
 
-        .profile-image {
-            flex: 1;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
+    .tip-card h3 {
+      margin-bottom: 0.8rem;
+    }
 
-        .profile-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s ease; /* 图片悬停效果 */
-        }
+    /* ===== 图片占位（使用 Unsplash 随机环保图）===== */
+    .hero-image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin: 1.5rem 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
 
-        .profile-image img:hover {
-            transform: scale(1.05);
-        }
+    /* ===== 页脚 ===== */
+    footer {
+      background-color: #27ae60;
+      color: white;
+      text-align: center;
+      padding: 1.5rem 0;
+      margin-top: 2rem;
+    }
 
-        .about-text {
-            flex: 2;
-        }
+    footer p {
+      margin: 0;
+    }
 
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: #ccd6f6;
-        }
-
-        .about-text p {
-            margin-bottom: 1rem;
-            color: #a8b2d1;
-        }
-
-        /* 技能部分 */
-        .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            justify-content: center;
-        }
-
-        .skill-card {
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            border-radius: 8px;
-            padding: 1.5rem;
-            width: 150px;
-            text-align: center;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-10px);
-            background-color: rgba(100, 255, 218, 0.1);
-        }
-
-        .skill-card i { /* 假设你使用了图标库，如Font Awesome */
-            font-size: 2.5rem;
-            color: #64ffda;
-            margin-bottom: 1rem;
-        }
-
-        .skill-card h4 {
-            color: #ccd6f6;
-        }
-
-        /* 博客文章列表 */
-        .blog-posts {
-            background-color: rgba(0, 0, 0, 0.3);
-        }
-
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .post-card {
-            background-color: rgba(30, 30, 30, 0.8);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
-        }
-
-        .post-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .post-image {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-
-        .post-content {
-            padding: 1.5rem;
-        }
-
-        .post-content h3 {
-            color: #64ffda;
-            margin-bottom: 0.5rem;
-        }
-
-        .post-content p {
-            color: #a8b2d1;
-            font-size: 0.9rem;
-        }
-
-        /* 页脚 */
-        footer {
-            background-color: rgba(0, 0, 0, 0.7);
-            text-align: center;
-            padding: 2rem;
-            color: #8892b0;
-        }
-
-        /* 动画定义 */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-    </style>
+    /* ===== 响应式调整 ===== */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      nav ul {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="parallax-container">
-        <div class="parallax-bg"></div>
-
-        <nav>
-            <a href="#" class="logo">测试Blog</a>
-            <div class="nav-links">
-                <a href="#home">首页</a>
-                <a href="#about">关于我</a>
-                <a href="#skills">技能</a>
-                <a href="#blog">博客</a>
-            </div>
-        </nav>
-
-        <header id="home">
-            <h1 class="greeting">你好，我是 <span>你的名字</span></h1>
-            <p class="tagline">一名充满热情的 <strong>开发者/设计师/其他</strong></p>
-            <a href="#about" class="cta-button">了解更多</a>
-        </header>
+  <header>
+    <div class="container">
+      <h1>Protect Our Planet</h1>
+      <p>Small actions, big impact. Start today.</p>
     </div>
+  </header>
 
-    <section id="about">
-        <h2 class="section-title">关于我</h2>
-        <div class="about-content">
-            <div class="profile-image">
-                <!-- 替换为你的头像图片链接 -->
-                <img src="https://via.placeholder.com/400x500/1a1a1a/64ffda?text=Profile+Image" alt="我的头像">
-            </div>
-            <div class="about-text">
-                <h3>欢迎来到我的世界</h3>
-                <p>这里可以放一段介绍你自己的文字，比如你的职业、兴趣爱好、人生格言等。可以详细介绍你的专业技能和经验。</p>
-                <p>你可以讲述一个简短的故事，或者分享一个有趣的事实，让访问者更了解你。</p>
-            </div>
-        </div>
+  <nav>
+    <div class="container">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#why">Why It Matters</a></li>
+        <li><a href="#actions">Take Action</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section id="home" class="section">
+      <img src="https://source.unsplash.com/1000x400/?nature,green,earth" alt="Nature" class="hero-image">
+      <p style="text-align: center; color: #555;">
+        Our planet is beautiful—but fragile. Every choice we make affects the environment.
+        Together, we can create a sustainable future.
+      </p>
     </section>
 
-    <section id="skills">
-        <h2 class="section-title">我的技能</h2>
-        <div class="skills-container">
-            <!-- 示例技能卡片 -->
-            <div class="skill-card">
-                <!-- <i class="fab fa-html5"></i> 如果使用图标库 -->
-                <h4>HTML5</h4>
-            </div>
-            <div class="skill-card">
-                <h4>CSS3</h4>
-            </div>
-            <div class="skill-card">
-                <h4>JavaScript</h4>
-            </div>
-            <div class="skill-card">
-                <h4>Python</h4>
-            </div>
-            <div class="skill-card">
-                <h4>UI/UX</h4>
-            </div>
-        </div>
+    <section id="why" class="section">
+      <h2>Why Protect the Environment?</h2>
+      <p>
+        Climate change, pollution, and deforestation threaten ecosystems and human health.
+        But there’s hope: when individuals act, communities thrive, and nature heals.
+      </p>
     </section>
 
-    <section id="blog" class="blog-posts">
-        <h2 class="section-title">我的博客</h2>
-        <div class="posts-grid">
-            <!-- 示例博客卡片 -->
-            <div class="post-card">
-                <img src="https://source.unsplash.com/600x400/?code,programming" alt="博客文章图片" class="post-image">
-                <div class="post-content">
-                    <h3>我的第一篇博客</h3>
-                    <p>这里是对这篇博客文章的简短描述...</p>
-                </div>
-            </div>
-             <div class="post-card">
-                <img src="https://source.unsplash.com/600x400/?web,design" alt="博客文章图片" class="post-image">
-                <div class="post-content">
-                    <h3>网页设计趋势</h3>
-                    <p>这里是对这篇博客文章的简短描述...</p>
-                </div>
-            </div>
-             <div class="post-card">
-                <img src="https://source.unsplash.com/600x400/?tech,innovation" alt="博客文章图片" class="post-image">
-                <div class="post-content">
-                    <h3>科技与创新</h3>
-                    <p>这里是对这篇博客文章的简短描述...</p>
-                </div>
-            </div>
+    <section id="actions" class="section">
+      <h2>Simple Actions You Can Take</h2>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <h3>Reduce Plastic</h3>
+          <p>Use reusable bags, bottles, and containers to cut down on single-use plastic waste.</p>
         </div>
+        <div class="tip-card">
+          <h3>Save Energy</h3>
+          <p>Turn off lights, unplug devices, and switch to LED bulbs to lower your carbon footprint.</p>
+        </div>
+        <div class="tip-card">
+          <h3>Plant Trees</h3>
+          <p>Trees absorb CO₂, provide oxygen, and support biodiversity. Even one makes a difference!</p>
+        </div>
+        <div class="tip-card">
+          <h3>Recycle Right</h3>
+          <p>Separate paper, glass, and metals properly to keep resources in use and out of landfills.</p>
+        </div>
+      </div>
     </section>
+  </main>
 
-    <footer>
-        <p>&copy; 2026 测试Blog. All rights reserved.</p>
-    </footer>
-
-    <script>
-        // 平滑滚动效果
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80, // 减去导航栏高度
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // 滚动时导航栏效果
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.style.padding = '0.5rem 2rem';
-                nav.style.background = 'rgba(0, 0, 0, 0.95)';
-            } else {
-                nav.style.padding = '1rem 2rem';
-                nav.style.background = 'rgba(0, 0, 0, 0.7)';
-            }
-        });
-    </script>
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Protect Our Planet Initiative. All rights reserved.</p>
+      <p>Made with 🌱 for a greener Earth.</p>
+    </div>
+  </footer>
 
 </body>
 </html>
